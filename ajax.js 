@@ -1,0 +1,44 @@
+var topics  = ["dog", "cat", "rabbit", "goat", "sheep", "wolf"]
+
+
+$(document).ready(function(){
+
+$( "#submit" ).on("click", function( event ) {
+  // alert( "Handler for sumit called." );
+  event.preventDefault();
+  // make a function that takes in the array and makes buttons with attcahed values and respected links
+  
+  // take in a value input which creates a new button which adds to the array of topics
+  
+  // add button click to start the gif and button click to stop it
+  // 
+
+
+
+// https://api.giphy.com/v1/gifs/search?q=kitty&limit=5&api_key=dc6zaTOxFJmzC
+  var baseUek = "https://api.giphy.com/v1/gifs/search?"
+  var apiKey = "GiphyAPI#public-beta-key"
+  var q = "q" /* is this all you need? */
+  var rating = "g"
+
+  // do i need a conditional as edge cases?
+  var searchUrl = baseUek + 
+
+  $.ajax({
+      url: searchUrl,
+      method: "GET"
+    }).done(function(response){
+
+
+      console.log( response);
+
+    }
+
+  }
+
+
+
+
+}
+
+
