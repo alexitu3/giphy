@@ -1,44 +1,90 @@
 var topics  = ["dog", "cat", "rabbit", "goat", "sheep", "wolf"]
 
+  function makeButtons() {
 
-$(document).ready(function(){
+        // Deleting the movies prior to adding new movies
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#animalButtons").empty();
 
-$( "#submit" ).on("click", function( event ) {
+        // Looping through the array of movies
+        for (var i = 0; i < topics.length; i++) {
+            console.log(topics[i])
+          // Then dynamicaly generating buttons for each movie in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class of movie to our button
+          a.addClass("topics");
+          // Adding a data-attribute
+          a.attr("data-name", topics[i]);
+          // Providing the initial button text
+          a.text(topics[i]);
+          // Adding the button to the buttons-view div
+          $("#animalButtons").append(a);
+        }
+      }
+
+     makeButtons();
+
+
+  // watch how to make this again. learn how to do it proper.
+       $("#add-animal").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var animal = $("#input-animal").val().trim();
+
+        // Adding movie from the textbox to our array
+        topics.push(animal); /* change this to animals */
+
+        // Calling renderButtons which handles the processing of our movie array
+        makeButtons();
+      });
+
+       $(document).on("click", ".topics", function(event) {
   // alert( "Handler for sumit called." );
   event.preventDefault();
-  // make a function that takes in the array and makes buttons with attcahed values and respected links
   
-  // take in a value input which creates a new button which adds to the array of topics
-  
-  // add button click to start the gif and button click to stop it
-  // 
-
-
-
+  https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC
 // https://api.giphy.com/v1/gifs/search?q=kitty&limit=5&api_key=dc6zaTOxFJmzC
-  var baseUek = "https://api.giphy.com/v1/gifs/search?"
-  var apiKey = "GiphyAPI#public-beta-key"
-  var q = "q" /* is this all you need? */
+  var topic = $(this).attr("data-name")
+  var baseUrl = "https://api.giphy.com/v1/gifs/search?"
+  var apiKey = "&api_key=dc6zaTOxFJmzC"
+  var q = "q=" /* is this all you need? */
   var rating = "g"
+  var limit = "&limit=10"
 
   // do i need a conditional as edge cases?
-  var searchUrl = baseUek + 
-
+  var searchUrl = baseUrl + q + topic + limit + apiKey 
+  
   $.ajax({
       url: searchUrl,
       method: "GET"
     }).done(function(response){
-
-
-      console.log( response);
-
-    }
-
-  }
+      console.log(response);
+      // create giphy div here with img tags with attr of still and animatted
 
 
 
+    });
 
-}
+  });
+
+
+       
+        // function when click on giphy it 
+        $(".gif").on("click", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
+
 
 
